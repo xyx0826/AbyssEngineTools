@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v5.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v5.0": {
+      "Kaamo/1.0.0": {
+        "dependencies": {
+          "Kaamo.Texture": "1.0.0"
+        },
+        "runtime": {
+          "Kaamo.dll": {}
+        }
+      },
+      "Kaamo.Texture/1.0.0": {
+        "runtime": {
+          "Kaamo.Texture.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Kaamo/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Kaamo.Texture/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

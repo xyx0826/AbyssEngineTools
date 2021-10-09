@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="Compression.h" />
+    <ClInclude Include="third_party\detex\bits.h">
+      <Filter>third_party\detex</Filter>
+    </ClInclude>
+    <ClInclude Include="third_party\detex\bptc-tables.h">
+      <Filter>third_party\detex</Filter>
+    </ClInclude>
+    <ClInclude Include="third_party\detex\detex.h">
+      <Filter>third_party\detex</Filter>
+    </ClInclude>
+    <ClInclude Include="third_party\detex\file-info.h">
+      <Filter>third_party\detex</Filter>
+    </ClInclude>
+    <ClInclude Include="third_party\detex\half-float.h">
+      <Filter>third_party\detex</Filter>
+    </ClInclude>
+    <ClInclude Include="third_party\detex\hdr.h">
+      <Filter>third_party\detex</Filter>
+    </ClInclude>
+    <ClInclude Include="third_party\detex\misc.h">
+      <Filter>third_party\detex</Filter>
+    </ClInclude>
+    <ClInclude Include="third_party\pvr\PVRTDecompress.h">
+      <Filter>third_party\pvr</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Compression.cpp" />
+    <ClCompile Include="third_party\detex\bits.cpp">
+      <Filter>third_party\detex</Filter>
+    </ClCompile>
+    <ClCompile Include="third_party\detex\bptc-tables.cpp">
+      <Filter>third_party\detex</Filter>
+    </ClCompile>
+    <ClCompile Include="third_party\detex\clamp.cpp">
+      <Filter>third_party\detex</Filter>
+    </ClCompile>
+    <ClCompile Include="third_party\detex\convert.cpp">
+      <Filter>third_party\detex</Filter>
+    </ClCompile>
+    <ClCompile Include="third_party\detex\dds.cpp">
+      <Filter>third_party\detex</Filter>
+    </ClCompile>
+    <ClCompile Include="third_party\detex\decompress-bptc-float.cpp">
+      <Filter>third_party\detex</Filter>
+    </ClCompile>
+    <ClCompile Include="third_party\detex\decompress-bptc.cpp">
+      <Filter>third_party\detex</Filter>
+    </ClCompile>
+    <ClCompile Include="third_party\detex\decompress-eac.cpp">
+      <Filter>third_party\detex</Filter>
+    </ClCompile>
+    <ClCompile Include="third_party\detex\decompress-etc.cpp">
+      <Filter>third_party\detex</Filter>
+    </ClCompile>
+    <ClCompile Include="third_party\detex\file-info.cpp">
+      <Filter>third_party\detex</Filter>
+    </ClCompile>
+    <ClCompile Include="third_party\detex\half-float.cpp">
+      <Filter>third_party\detex</Filter>
+    </ClCompile>
+    <ClCompile Include="third_party\detex\misc.cpp">
+      <Filter>third_party\detex</Filter>
+    </ClCompile>
+    <ClCompile Include="third_party\detex\texture.cpp">
+      <Filter>third_party\detex</Filter>
+    </ClCompile>
+    <ClCompile Include="third_party\pvr\PVRTDecompress.cpp">
+      <Filter>third_party\pvr</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="third_party">
+      <UniqueIdentifier>{e1ae3ed8-0e4c-4638-88c8-2515920fe3e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="third_party\pvr">
+      <UniqueIdentifier>{e2a7c273-843a-44eb-b000-271f0f615f96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="third_party\detex">
+      <UniqueIdentifier>{621c151b-8bd3-473c-b4b4-b7f63a39d2e9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
