@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Kaamo.Texture;
+using Kaamo.Texture.Enums;
+using System;
 using System.IO;
 using System.Security.Cryptography;
-using Kaamo.Enums;
 using Xunit;
 
 namespace Kaamo.Tests
