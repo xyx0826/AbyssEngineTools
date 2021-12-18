@@ -223,7 +223,7 @@ namespace Kaamo
                 while (myDataLen != 0)
                 {
                     myDataLen -= PixelFormatUtils.GetMipmapLevelSize(
-                        format, w, h, 0, mipmapCount);
+                        format, w, h, 1, mipmapCount);
                     mipmapCount++;
                 }
             }
