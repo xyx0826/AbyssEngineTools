@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using Kaamo.Enums;
+using Kaamo.Texture.Enums;
 
-namespace Kaamo.Utils
+namespace Kaamo.Texture.Utils
 {
     /// <summary>
     /// Utilities for pixel format types and computations.

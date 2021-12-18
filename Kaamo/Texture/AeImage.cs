@@ -4,10 +4,10 @@ using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Windows;
-using Kaamo.Enums;
-using Kaamo.Utils;
+using Kaamo.Texture.Enums;
+using Kaamo.Texture.Utils;
 
-namespace Kaamo
+namespace Kaamo.Texture
 {
     /// <summary>
     /// A region in an <see cref="AeImage"/>.

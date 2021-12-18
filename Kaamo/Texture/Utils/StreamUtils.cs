@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace Kaamo.Utils
+namespace Kaamo.Texture.Utils
 {
     /// <summary>
     /// High-performance utility methods for reading integers from a <see cref="Stream"/>.

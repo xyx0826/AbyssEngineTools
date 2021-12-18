@@ -1,7 +1,7 @@
 ﻿using System;
-using Kaamo.Enums;
+using Kaamo.Texture.Enums;
 
-namespace Kaamo
+namespace Kaamo.Texture
 {
     /// <summary>
     /// Indicates that a pixel format is in use by an <see cref="Engine"/>

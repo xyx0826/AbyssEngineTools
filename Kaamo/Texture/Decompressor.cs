@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Kaamo.Enums;
-using Kaamo.Texture;
-using Kaamo.Utils;
+using Kaamo.Texture.Enums;
+using Kaamo.Texture.Utils;
 
-namespace Kaamo
+namespace Kaamo.Texture
 {
     internal static class Decompressor
     {

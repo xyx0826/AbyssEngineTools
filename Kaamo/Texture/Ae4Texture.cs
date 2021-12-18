@@ -1,10 +1,10 @@
-﻿using Kaamo.Enums;
-using Kaamo.Utils;
+﻿using Kaamo.Texture.Enums;
+using Kaamo.Texture.Utils;
 using System;
 using System.IO;
 using System.Runtime.InteropServices;
 
-namespace Kaamo
+namespace Kaamo.Texture
 {
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     internal struct Ae4TextureResource

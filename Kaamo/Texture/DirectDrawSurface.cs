@@ -2,7 +2,7 @@
 using System.IO;
 using System.Runtime.InteropServices;
 
-namespace Kaamo
+namespace Kaamo.Texture
 {
     internal static class DirectDrawSurface
     {

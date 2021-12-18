@@ -1,4 +1,4 @@
-﻿namespace Kaamo.Enums
+﻿namespace Kaamo.Texture.Enums
 {
     /// <summary>
     /// Abyss Engine versions.
