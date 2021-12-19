@@ -128,24 +128,23 @@ namespace Kaamo.Texture
             else
             {
                 // Slice up data
-                var faceCount = IsCubemap ? 6 : 1;
-                var surfaces = new List<byte[]>(MipmapCount * faceCount);
-                for (var face = 0; face < faceCount; face++)
+                var surfaces = new List<byte[]>(MipmapCount);
+                for (var level = 0; level < MipmapCount; level++)
                 {
-                    for (var level = 0; level < MipmapCount; level++)
-                    {
-                        // Get size of the current level
-                        var size = PixelFormatUtils.GetSize(
-                            Format, level + 1, Width, Height, 1, IsCubemap);
+                    // The utilities multiply input by 6 if IsCubemap
+                    var actualHeight = IsCubemap ? Height / 6 : Height;
 
-                        // Compute starting position for current face and level
-                        var offset = PixelFormatUtils.GetOffset(Format, MipmapCount,
-                            Width, Height, 1, face, level, IsCubemap);
+                    // Get size of the current level
+                    var size = PixelFormatUtils.GetSize(
+                        Format, level + 1, Width, actualHeight, 1, IsCubemap);
 
-                        var rgbaSurface = new ArraySegment<byte>(Data, offset, size).ToArray();
-                        var bgraSurface = PixelFormatUtils.ConvertToBgra8(Format, rgbaSurface);
-                        surfaces.Add(bgraSurface);
-                    }
+                    // Compute starting position for current face and level
+                    var offset = PixelFormatUtils.GetOffset(Format, MipmapCount,
+                        Width, actualHeight, 1, 0, level, IsCubemap);
+
+                    var rgbaSurface = new ArraySegment<byte>(Data, offset, size).ToArray();
+                    var bgraSurface = PixelFormatUtils.ConvertToBgra8(Format, rgbaSurface);
+                    surfaces.Add(bgraSurface);
                 }
 
                 Surfaces = surfaces;
