@@ -316,9 +316,8 @@ namespace Kaamo.Texture.Utils
                         Array.Copy(data, output, output.Length);
                         for (var i = 0; i < npx; i++)
                         {
-                            var temp = pData[i * 4];
-                            pData[i * 4] = pData[i * 4 + 2];
-                            pData[i * 4] = temp;
+                            // Swap first and third bytes for each pixel
+                            (output[i * 4], output[i * 4 + 2]) = (output[i * 4 + 2], output[i * 4]);
                         }
                         break;
                     default:
