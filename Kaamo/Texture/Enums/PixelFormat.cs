@@ -14,7 +14,7 @@
     /// formats with unknown compression yet the same block count of 16 bytes per block (BPB).
     /// </para>
     /// </summary>
-    internal enum PixelFormat
+    public enum PixelFormat
     {
         // RGB(A) raw formats
 

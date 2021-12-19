@@ -13,7 +13,7 @@ namespace Kaamo.Texture
     /// A region in an <see cref="AeImage"/>.
     /// </summary>
     [DebuggerDisplay("Region #{Index}, {Region}")]
-    internal struct AeImageRegion
+    public struct AeImageRegion
     {
         /// <summary>
         /// Region index.
@@ -30,7 +30,7 @@ namespace Kaamo.Texture
     /// A glyph in an <see cref="AeImage"/>.
     /// </summary>
     [DebuggerDisplay("Glyph #{Index} {Glyph}, {Region}")]
-    internal struct AeImageGlyph
+    public struct AeImageGlyph
     {
         /// <summary>
         /// Glyph index within the glyph group.
@@ -54,7 +54,7 @@ namespace Kaamo.Texture
     [DebuggerDisplay("Image {Width}x{Height} in {Format}, " +
                      "{Data.Length} bytes, {Regions.Count} regions, " +
                      "{GlyphGroups.Count} glyph groups")]
-    internal class AeImage
+    public class AeImage
     {
         /// <summary>
         /// Texture data pixel format.
@@ -97,7 +97,7 @@ namespace Kaamo.Texture
         public ICollection<ICollection<AeImageGlyph>> GlyphGroups;
     }
 
-    internal static class AeImageReader
+    public static class AeImageReader
     {
         /// <summary>
         /// Magic bytes at the beginning of each <see cref="AeImage"/> file.

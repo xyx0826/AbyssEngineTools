@@ -8,7 +8,7 @@ namespace Kaamo.Texture.Utils
     /// <summary>
     /// Utilities for pixel format types and computations.
     /// </summary>
-    internal static class PixelFormatUtils
+    public static class PixelFormatUtils
     {
         private static readonly Dictionary<PixelFormat, int> BitsPerPixel = new()
         {

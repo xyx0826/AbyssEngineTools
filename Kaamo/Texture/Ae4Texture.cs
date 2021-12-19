@@ -56,7 +56,7 @@ namespace Kaamo.Texture
         public byte[] Data;
     }
 
-    internal class Ae4TextureReader
+    public class Ae4TextureReader
     {
         private static bool CheckMagicAndVersion(Stream stream)
         {

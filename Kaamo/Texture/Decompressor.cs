@@ -5,7 +5,7 @@ using Kaamo.Texture.Utils;
 
 namespace Kaamo.Texture
 {
-    internal static class Decompressor
+    public static class Decompressor
     {
         /// <summary>
         /// Internally decompresses texture data with specified parameters.

@@ -3,7 +3,7 @@
     /// <summary>
     /// Abyss Engine versions.
     /// </summary>
-    internal enum Engine
+    public enum Engine
     {
         /// <summary>
         /// Used by Galaxy on Fire 2.
@@ -24,7 +24,7 @@
     /// <summary>
     /// Products built on Abyss Engine.
     /// </summary>
-    internal enum Product
+    public enum Product
     {
         GalaxyOnFire2,
         GalaxyOnFireAlliances,
@@ -34,7 +34,7 @@
     /// <summary>
     /// Platforms supported by Abyss Engine products.
     /// </summary>
-    internal enum Platform
+    public enum Platform
     {
         Android,
         Ios,
