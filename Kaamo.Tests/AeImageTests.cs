@@ -48,16 +48,15 @@ namespace Kaamo.Tests
 
             using var file = File.OpenRead(Utilities.GetResourcePath(fileName));
             var texture = AeImageReader.Read(file);
-            var maps = Decompressor.Decompress(texture);
-            var hash = MD5.HashData(maps[bitmapIndex]);
+            var hash = MD5.HashData(texture.Surfaces[bitmapIndex]);
 
             using var dds = DirectDrawSurface.CreateWriteStream(fileName + ".dds", texture);
-            foreach (var map in maps)
+            foreach (var map in texture.Surfaces)
             {
                 dds.Write(map);
             }
 
-            Assert.Equal(bitmapCount, maps.Count);
+            Assert.Equal(bitmapCount, texture.Surfaces.Count);
             Assert.Equal(md5, Convert.ToHexString(hash));
         }
     }
