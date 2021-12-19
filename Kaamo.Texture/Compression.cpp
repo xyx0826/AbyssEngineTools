@@ -2,40 +2,35 @@
 
 #include "third_party/pvr/PVRTDecompress.h"
 
-using namespace System;
-using namespace Kaamo::Texture;
-
-UInt32 __clrcall Compression::Decompress(
-	array<Byte>^ data, Int32 offset,
-	NativePixelFormat format, Int32 x, Int32 y,
-	array<Byte>^ output)
+EXTERN_DLL_EXPORT uint32_t Decompress(
+	uint8_t* data, int offset,
+	NativePixelFormat format, int x, int y,
+	uint8_t* output)
 {
-	if (!(data->Length && x && y))
+	if (!(x && y))
 	{
-		// Input is empty, or invalid dimensions
+		// Invalid dimensions
 		return 0;
 	}
 
 	uint32_t retLen;
-	pin_ptr<Byte> pIn;
-	pin_ptr<Byte> pOut;
 
-	pOut = &output[0];
-	pIn = &data[offset];
+	auto pOut = output;
+	auto pIn = data + offset;
 
 	switch (format)
 	{
 	case NativePixelFormat::Pvrtc2:
 		// PVR 2bpp
-		retLen = pvr::PVRTDecompressPVRTC((Byte*)pIn, true, x, y, (Byte*)pOut);
+		retLen = pvr::PVRTDecompressPVRTC(pIn, true, x, y, pOut);
 		break;
 	case NativePixelFormat::Pvrtc4:
 		// PVR 4bpp
-		retLen = pvr::PVRTDecompressPVRTC((Byte*)pIn, false, x, y, (Byte*)pOut);
+		retLen = pvr::PVRTDecompressPVRTC(pIn, false, x, y, pOut);
 		break;
 	case NativePixelFormat::Etc1:
 		// ETC1 (detex works too)
-		retLen = pvr::PVRTDecompressETC((Byte*)pIn, x, y, (Byte*)pOut, NULL);
+		retLen = pvr::PVRTDecompressETC(pIn, x, y, pOut, NULL);
 		break;
 	default:
 		// ETC2, S3TC

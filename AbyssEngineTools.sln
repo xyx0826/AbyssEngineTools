@@ -8,8 +8,14 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Kaamo.Texture", "Kaamo.Texture\Kaamo.Texture.vcxproj", "{AEE10080-F4B2-4AC2-AC16-44101AC5E1FA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kaamo", "Kaamo\Kaamo.csproj", "{55EA8931-1124-4693-800B-4FB8821FD5C5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AEE10080-F4B2-4AC2-AC16-44101AC5E1FA} = {AEE10080-F4B2-4AC2-AC16-44101AC5E1FA}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kaamo.Tests", "Kaamo.Tests\Kaamo.Tests.csproj", "{766FCE99-966D-49EA-B18B-35512D6031C4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AEE10080-F4B2-4AC2-AC16-44101AC5E1FA} = {AEE10080-F4B2-4AC2-AC16-44101AC5E1FA}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kaamo.TexturePlugin", "Kaamo.TexturePlugin\Kaamo.TexturePlugin.csproj", "{37E14E21-2FBD-4FB7-A5BF-8758CDF630F9}"
 EndProject

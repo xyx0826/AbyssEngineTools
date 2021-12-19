@@ -31,7 +31,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy &quot;$(OutDir)Kaamo*&quot; &quot;C:\Users\xyx0826\Documents\.Apps\paint.net.4.3.4.portable.x64\FileTypes\$(ProjectName)&quot; /Y /I /E" />
+    <Exec Command="xcopy &quot;$(SolutionDir)build\Kaamo.Texture*&quot; &quot;$(TargetDir)&quot; /Y /I&#xD;&#xA;xcopy &quot;$(OutDir)Kaamo*&quot; &quot;C:\Users\xyx0826\Documents\.Apps\paint.net.4.3.4.portable.x64\FileTypes\$(ProjectName)&quot; /Y /I" />
   </Target>
 
 </Project>

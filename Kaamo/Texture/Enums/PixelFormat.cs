@@ -152,4 +152,20 @@
         //[PixelFormat(Engine.AbyssEngine2, 12)]
         //Rgba8Cubemap
     }
+
+    /// <summary>
+    /// Compressed pixel formats handled by the native decompressor.
+    /// </summary>
+    public enum NativePixelFormat
+    {
+        Pvrtc2 = 0,
+        Pvrtc4 = 1,
+        Bc1A = 33555252,
+        Bc3 = 75498292,
+        Bc5 = 125829392,
+        Etc1 = 201327392,
+        Etc2 = 218104608,
+        Etc2Punchthrough = 234881844,
+        Etc2Eac = 260047668,
+    }
 }

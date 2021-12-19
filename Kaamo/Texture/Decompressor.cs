@@ -76,7 +76,7 @@ namespace Kaamo.Texture
                         height, depth, level);
 
                     // Call into library to decompress pixels
-                    var readSize = Compression.Decompress(data, offset, pvrFormat, w, h,
+                    var readSize = Native.Decompress(data, offset, pvrFormat, w, h,
                         rgba);
 
                     // Compressed size sanity check

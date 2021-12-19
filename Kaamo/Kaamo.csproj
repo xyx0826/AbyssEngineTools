@@ -18,8 +18,4 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Kaamo.Texture\Kaamo.Texture.vcxproj" />
-  </ItemGroup>
-
 </Project>
