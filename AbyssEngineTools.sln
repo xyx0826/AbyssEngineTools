@@ -9,7 +9,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Kaamo.Texture", "Kaamo.Text
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kaamo", "Kaamo\Kaamo.csproj", "{55EA8931-1124-4693-800B-4FB8821FD5C5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kaamo.Tests", "Kaamo.Tests\Kaamo.Tests.csproj", "{766FCE99-966D-49EA-B18B-35512D6031C4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kaamo.Tests", "Kaamo.Tests\Kaamo.Tests.csproj", "{766FCE99-966D-49EA-B18B-35512D6031C4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kaamo.TexturePlugin", "Kaamo.TexturePlugin\Kaamo.TexturePlugin.csproj", "{37E14E21-2FBD-4FB7-A5BF-8758CDF630F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -149,6 +151,38 @@ Global
 		{766FCE99-966D-49EA-B18B-35512D6031C4}.RelWithDebInfo|x64.Build.0 = Release|Any CPU
 		{766FCE99-966D-49EA-B18B-35512D6031C4}.RelWithDebInfo|x86.ActiveCfg = Release|Any CPU
 		{766FCE99-966D-49EA-B18B-35512D6031C4}.RelWithDebInfo|x86.Build.0 = Release|Any CPU
+		{37E14E21-2FBD-4FB7-A5BF-8758CDF630F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37E14E21-2FBD-4FB7-A5BF-8758CDF630F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37E14E21-2FBD-4FB7-A5BF-8758CDF630F9}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{37E14E21-2FBD-4FB7-A5BF-8758CDF630F9}.Debug|Win32.Build.0 = Debug|Any CPU
+		{37E14E21-2FBD-4FB7-A5BF-8758CDF630F9}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{37E14E21-2FBD-4FB7-A5BF-8758CDF630F9}.Debug|x64.Build.0 = Debug|Any CPU
+		{37E14E21-2FBD-4FB7-A5BF-8758CDF630F9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{37E14E21-2FBD-4FB7-A5BF-8758CDF630F9}.Debug|x86.Build.0 = Debug|Any CPU
+		{37E14E21-2FBD-4FB7-A5BF-8758CDF630F9}.MinSizeRel|Any CPU.ActiveCfg = Debug|Any CPU
+		{37E14E21-2FBD-4FB7-A5BF-8758CDF630F9}.MinSizeRel|Any CPU.Build.0 = Debug|Any CPU
+		{37E14E21-2FBD-4FB7-A5BF-8758CDF630F9}.MinSizeRel|Win32.ActiveCfg = Debug|Any CPU
+		{37E14E21-2FBD-4FB7-A5BF-8758CDF630F9}.MinSizeRel|Win32.Build.0 = Debug|Any CPU
+		{37E14E21-2FBD-4FB7-A5BF-8758CDF630F9}.MinSizeRel|x64.ActiveCfg = Debug|Any CPU
+		{37E14E21-2FBD-4FB7-A5BF-8758CDF630F9}.MinSizeRel|x64.Build.0 = Debug|Any CPU
+		{37E14E21-2FBD-4FB7-A5BF-8758CDF630F9}.MinSizeRel|x86.ActiveCfg = Debug|Any CPU
+		{37E14E21-2FBD-4FB7-A5BF-8758CDF630F9}.MinSizeRel|x86.Build.0 = Debug|Any CPU
+		{37E14E21-2FBD-4FB7-A5BF-8758CDF630F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37E14E21-2FBD-4FB7-A5BF-8758CDF630F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37E14E21-2FBD-4FB7-A5BF-8758CDF630F9}.Release|Win32.ActiveCfg = Release|Any CPU
+		{37E14E21-2FBD-4FB7-A5BF-8758CDF630F9}.Release|Win32.Build.0 = Release|Any CPU
+		{37E14E21-2FBD-4FB7-A5BF-8758CDF630F9}.Release|x64.ActiveCfg = Release|Any CPU
+		{37E14E21-2FBD-4FB7-A5BF-8758CDF630F9}.Release|x64.Build.0 = Release|Any CPU
+		{37E14E21-2FBD-4FB7-A5BF-8758CDF630F9}.Release|x86.ActiveCfg = Release|Any CPU
+		{37E14E21-2FBD-4FB7-A5BF-8758CDF630F9}.Release|x86.Build.0 = Release|Any CPU
+		{37E14E21-2FBD-4FB7-A5BF-8758CDF630F9}.RelWithDebInfo|Any CPU.ActiveCfg = Release|Any CPU
+		{37E14E21-2FBD-4FB7-A5BF-8758CDF630F9}.RelWithDebInfo|Any CPU.Build.0 = Release|Any CPU
+		{37E14E21-2FBD-4FB7-A5BF-8758CDF630F9}.RelWithDebInfo|Win32.ActiveCfg = Release|Any CPU
+		{37E14E21-2FBD-4FB7-A5BF-8758CDF630F9}.RelWithDebInfo|Win32.Build.0 = Release|Any CPU
+		{37E14E21-2FBD-4FB7-A5BF-8758CDF630F9}.RelWithDebInfo|x64.ActiveCfg = Release|Any CPU
+		{37E14E21-2FBD-4FB7-A5BF-8758CDF630F9}.RelWithDebInfo|x64.Build.0 = Release|Any CPU
+		{37E14E21-2FBD-4FB7-A5BF-8758CDF630F9}.RelWithDebInfo|x86.ActiveCfg = Release|Any CPU
+		{37E14E21-2FBD-4FB7-A5BF-8758CDF630F9}.RelWithDebInfo|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
