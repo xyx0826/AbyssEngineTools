@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Reflection;
 using Kaamo.Texture.Enums;
 
@@ -10,6 +11,9 @@ namespace Kaamo.Texture.Utils
     /// </summary>
     public static class PixelFormatUtils
     {
+        /// <summary>
+        /// Number of bits per pixel in uncompressed pixel formats.
+        /// </summary>
         private static readonly Dictionary<PixelFormat, int> BitsPerPixel = new()
         {
             { PixelFormat.Rgb8, 24 },
@@ -31,6 +35,9 @@ namespace Kaamo.Texture.Utils
             //{ PixelFormat.Rgba8Cubemap, 32 }
         };
 
+        /// <summary>
+        /// Number of bytes per block in compressed pixel formats.
+        /// </summary>
         private static readonly Dictionary<PixelFormat, int> BytesPerBlock = new()
         {
             { PixelFormat.PvrtcRgb2BppV1, 8 },
@@ -51,6 +58,9 @@ namespace Kaamo.Texture.Utils
             { PixelFormat.Dxt5Rgba, 16 }
         };
 
+        /// <summary>
+        /// For each engine version, maps engine-specific pixel format value to enum.
+        /// </summary>
         private static Dictionary<Engine, Dictionary<byte, PixelFormat>> _mappings;
 
         /// <summary>
@@ -159,6 +169,10 @@ namespace Kaamo.Texture.Utils
         public static bool IsCompressed(this PixelFormat format)
             => format is >= PixelFormat.PvrtcRgb2BppV1 and <= PixelFormat.Dxt5Rgba;
 
+        /// <summary>
+        /// Same as <see cref="GetSize(PixelFormat, int, int, int, int, bool)"/>
+        /// but accounts for cubemap.
+        /// </summary>
         public static int GetSize(
             PixelFormat format, int mipmapCount, int width, int height, int depth, bool isCubemap)
         {
@@ -176,6 +190,17 @@ namespace Kaamo.Texture.Utils
             return GetFaceSize(format, mipmapCount - l, (int)w, (int)h, (int)d);
         }
 
+        /// <summary>
+        /// Computes the dimension of a mipmap with the specified original
+        /// dimensions and mipmap level.
+        /// </summary>
+        /// <param name="width">Width in pixels.</param>
+        /// <param name="height">Height in pixels.</param>
+        /// <param name="depth">Depth.</param>
+        /// <param name="level">Mipmap level.</param>
+        /// <param name="mipmapWidth">Computed mipmap width.</param>
+        /// <param name="mipmapHeight">Computed mipmap height.</param>
+        /// <param name="mipmapDepth">Computed mipmap depth.</param>
         public static void GetMipmapDimensions(int width, int height, int depth, int level,
             out int mipmapWidth, out int mipmapHeight, out int mipmapDepth)
         {
@@ -184,6 +209,10 @@ namespace Kaamo.Texture.Utils
             mipmapDepth = (int)(depth / Math.Pow(2, level));
         }
 
+        /// <summary>
+        /// Same as <see cref="GetSize(PixelFormat, int, int, int, int, bool)"/>
+        /// but accounts for mipmap.
+        /// </summary>
         public static int GetMipmapLevelSize(
             PixelFormat format, int width, int height, int depth, int level)
         {
@@ -192,6 +221,19 @@ namespace Kaamo.Texture.Utils
             return GetFormatSize(format, mw, mh, md);
         }
 
+        /// <summary>
+        /// Computes the byte offset of the specified face and mipmap in the
+        /// original texture data.
+        /// </summary>
+        /// <param name="format">Pixel format.</param>
+        /// <param name="mipmapCount">Count of mipmaps including the first layer.</param>
+        /// <param name="width">Width in pixels.</param>
+        /// <param name="height">Height in pixels.</param>
+        /// <param name="depth">Depth.</param>
+        /// <param name="face">Cubemap face index.</param>
+        /// <param name="level">LOD level index.</param>
+        /// <param name="isCubemap">Whether the texture is a cubemap.</param>
+        /// <returns>The byte offset of the specified face and mipmap.</returns>
         public static int GetOffset(
             PixelFormat format, int mipmapCount,
             int width, int height, int depth, int face, int level, bool isCubemap)
@@ -207,6 +249,16 @@ namespace Kaamo.Texture.Utils
             return offset;
         }
 
+        /// <summary>
+        /// Gets the pixel format corresponding to the specified engine and
+        /// its pixel format value.
+        /// </summary>
+        /// <param name="engine">The engine.</param>
+        /// <param name="value">The engine-specific format.</param>
+        /// <returns>The pixel format.</returns>
+        /// <exception cref="Exception">
+        /// Thrown if the engine or format is unknown.
+        /// </exception>
         public static PixelFormat GetPixelFormat(Engine engine, byte value)
         {
             if (_mappings == null)
@@ -214,6 +266,7 @@ namespace Kaamo.Texture.Utils
                 LoadMappings();
             }
 
+            Debug.Assert(_mappings != null, nameof(_mappings) + " != null");
             if (_mappings.TryGetValue(engine, out var formats))
             {
                 if (formats.TryGetValue(value, out var format))
