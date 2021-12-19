@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31702.278
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AEIEditor", "AEIEditor\AEIEditor.csproj", "{2615C081-788E-42BD-A3C3-8BDBF47BA281}"
 EndProject
@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kaamo", "Kaamo\Kaamo.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kaamo.Tests", "Kaamo.Tests\Kaamo.Tests.csproj", "{766FCE99-966D-49EA-B18B-35512D6031C4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kaamo.TexturePlugin", "Kaamo.TexturePlugin\Kaamo.TexturePlugin.csproj", "{37E14E21-2FBD-4FB7-A5BF-8758CDF630F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kaamo.TexturePlugin", "Kaamo.TexturePlugin\Kaamo.TexturePlugin.csproj", "{37E14E21-2FBD-4FB7-A5BF-8758CDF630F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
