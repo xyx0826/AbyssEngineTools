@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 namespace Kaamo.Texture
 {
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
-    internal struct Ae4TextureResource
+    public struct Ae4TextureResource
     {
         public int Format;
         public short LinearMipmapMode;
@@ -26,7 +26,7 @@ namespace Kaamo.Texture
         public bool SetFilterAndAddressMode;
     }
 
-    internal class Ae4Texture
+    public class Ae4Texture
     {
         private readonly Ae4TextureResource _resource;
 

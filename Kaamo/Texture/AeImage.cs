@@ -15,15 +15,21 @@ namespace Kaamo.Texture
     [DebuggerDisplay("Region #{Index}, {Region}")]
     public struct AeImageRegion
     {
+        public AeImageRegion(int index, Rect region)
+        {
+            Index = index;
+            Region = region;
+        }
+
         /// <summary>
         /// Region index.
         /// </summary>
-        public int Index;
+        public readonly int Index;
 
         /// <summary>
         /// Region area.
         /// </summary>
-        public Rect Region;
+        public readonly Rect Region;
     }
 
     /// <summary>
@@ -32,20 +38,48 @@ namespace Kaamo.Texture
     [DebuggerDisplay("Glyph #{Index} {Glyph}, {Region}")]
     public struct AeImageGlyph
     {
+        public AeImageGlyph(int index, char glyph)
+        {
+            Index = index;
+            Glyph = glyph;
+            _regionSet = false;
+        }
+
+        /// <summary>
+        /// Sets the region of the glyph.
+        /// Can only be used once.
+        /// </summary>
+        /// <param name="region">Glyph region.</param>
+        /// <exception cref="Exception">
+        /// Thrown if the glyph already has a region set.
+        /// </exception>
+        public void SetRegion(Rect region)
+        {
+            if (_regionSet)
+            {
+                throw new Exception("The glyph already has a region set.");
+            }
+
+            _regionSet = true;
+            Region = region;
+        }
+
         /// <summary>
         /// Glyph index within the glyph group.
         /// </summary>
-        public int Index;
+        public readonly int Index;
 
         /// <summary>
         /// The glyph.
         /// </summary>
-        public char Glyph;
+        public readonly char Glyph;
+
+        private bool _regionSet;
 
         /// <summary>
         /// Glyph region area.
         /// </summary>
-        public Rect Region;
+        public Rect Region { get; private set; }
     }
 
     /// <summary>
@@ -56,45 +90,112 @@ namespace Kaamo.Texture
                      "{GlyphGroups.Count} glyph groups")]
     public class AeImage
     {
+        public AeImage(
+            PixelFormat format, ushort width, ushort height, int mipmapCount,
+            bool isCubemap, ICollection<AeImageRegion> regions, byte[] data,
+            ICollection<ICollection<AeImageGlyph>> glyphGroups)
+        {
+            Format = format;
+            Width = width;
+            Height = height;
+            MipmapCount = mipmapCount;
+            IsCubemap = isCubemap;
+            Regions = regions;
+            Data = data;
+            GlyphGroups = glyphGroups;
+
+            CreateSurfaces();
+        }
+
+        /// <summary>
+        /// Creates surfaces from original texture data.
+        /// </summary>
+        /// <exception cref="Exception">
+        /// Thrown if the image already have surfaces.
+        /// </exception>
+        private void CreateSurfaces()
+        {
+            if (Surfaces is { Count: > 0 })
+            {
+                throw new Exception("The image already have surfaces.");
+            }
+
+            if (Format.IsCompressed())
+            {
+                // Directly decompress into surfaces
+                Surfaces = Decompressor.Decompress(this);
+            }
+            else
+            {
+                // Slice up data
+                var faceCount = IsCubemap ? 6 : 1;
+                var surfaces = new List<byte[]>(MipmapCount * faceCount);
+                for (var face = 0; face < faceCount; face++)
+                {
+                    for (var level = 0; level < MipmapCount; level++)
+                    {
+                        // Get size of the current level
+                        var size = PixelFormatUtils.GetSize(
+                            Format, level + 1, Width, Height, 1, IsCubemap);
+
+                        // Compute starting position for current face and level
+                        var offset = PixelFormatUtils.GetOffset(Format, MipmapCount,
+                            Width, Height, 1, face, level, IsCubemap);
+
+                        var rgbaSurface = new ArraySegment<byte>(Data, offset, size).ToArray();
+                        var bgraSurface = PixelFormatUtils.ConvertToBgra8(Format, rgbaSurface);
+                        surfaces.Add(bgraSurface);
+                    }
+                }
+
+                Surfaces = surfaces;
+            }
+        }
+
         /// <summary>
         /// Texture data pixel format.
         /// </summary>
-        public PixelFormat Format;
+        public readonly PixelFormat Format;
 
         /// <summary>
         /// Texture data pixel width.
         /// </summary>
-        public ushort Width;
+        public readonly ushort Width;
 
         /// <summary>
         /// Texture data pixel height.
         /// </summary>
-        public ushort Height;
+        public readonly ushort Height;
 
         /// <summary>
         /// Computed texture mipmap count.
         /// </summary>
-        public int MipmapCount;
+        public readonly int MipmapCount;
 
         /// <summary>
         /// Whether the texture is a cubemap.
         /// </summary>
-        public bool IsCubemap;
+        public readonly bool IsCubemap;
 
         /// <summary>
         /// Texture regions.
         /// </summary>
-        public ICollection<AeImageRegion> Regions;
+        public readonly ICollection<AeImageRegion> Regions;
 
         /// <summary>
-        /// Texture data.
+        /// Original texture data.
         /// </summary>
-        public byte[] Data;
+        public readonly byte[] Data;
 
         /// <summary>
         /// Glyph groups in the image.
         /// </summary>
         public ICollection<ICollection<AeImageGlyph>> GlyphGroups;
+
+        /// <summary>
+        /// Mipmaps and faces of the image in <see cref="PixelFormat.Bgra8"/>.
+        /// </summary>
+        public IReadOnlyList<byte[]> Surfaces;
     }
 
     public static class AeImageReader
@@ -139,43 +240,50 @@ namespace Kaamo.Texture
             throw new Exception("Not enough length.");
         }
 
+        /// <summary>
+        /// Reads the specified number of regions from the image stream.
+        /// </summary>
+        /// <param name="stream">The image stream.</param>
+        /// <param name="nRegions">Number of regions to read.</param>
+        /// <returns>Regions.</returns>
         private static ICollection<AeImageRegion> ReadRegions(Stream stream, int nRegions)
         {
             var regions = new AeImageRegion[nRegions];
 
             for (var i = 0; i < nRegions; i++)
             {
-                regions[i] = new AeImageRegion
-                {
-                    Index = i,
-                    Region = ReadRect(stream)
-                };
+                regions[i] = new AeImageRegion(i, ReadRect(stream));
             }
 
             return regions;
         }
 
+        /// <summary>
+        /// Reads the specified number of glyph groups and all their glyphs
+        /// from the image stream.
+        /// </summary>
+        /// <param name="stream">The image stream.</param>
+        /// <param name="nGlyphGroups">Number of glyph groups to read.</param>
+        /// <returns>Glyph groups.</returns>
         private static ICollection<ICollection<AeImageGlyph>> ReadGlyphGroups(
             Stream stream, int nGlyphGroups)
         {
             Span<byte> buf = stackalloc byte[2];
-            ReadOnlySpan<byte> bufView = buf;
             var groups = new AeImageGlyph[nGlyphGroups][];
 
             for (var i = 0; i < nGlyphGroups; i++)
             {
                 var nGlyphs = stream.ReadUShort();
                 var glyphs = new AeImageGlyph[nGlyphs];
-                Array.Fill(glyphs, new AeImageGlyph());
                 for (var j = 0; j < nGlyphs; j++)
                 {
                     stream.Read(buf);
-                    glyphs[j].Index = j;
-                    glyphs[j].Glyph = Encoding.Unicode.GetString(bufView)[0];
+                    var glyphChar = Encoding.Unicode.GetString(buf)[0];
+                    glyphs[j] = new AeImageGlyph(i, glyphChar);
                 }
                 for (var j = 0; j < nGlyphs; j++)
                 {
-                    glyphs[j].Region = ReadRect(stream);
+                    glyphs[j].SetRegion(ReadRect(stream));
                 }
 
                 groups[i] = glyphs;
@@ -228,17 +336,7 @@ namespace Kaamo.Texture
                 }
             }
 
-            return new AeImage
-            {
-                Format = format,
-                Width = w,
-                Height = h,
-                MipmapCount = mipmapCount,
-                IsCubemap = isCubemap,
-                Regions = regions,
-                Data = data,
-                GlyphGroups = glyphGroups
-            };
+            return new AeImage(format, w, h, mipmapCount, isCubemap, regions, data, glyphGroups);
         }
     }
 }
