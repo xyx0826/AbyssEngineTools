@@ -24,6 +24,7 @@
         [PixelFormat(Engine.AbyssEngine4, 3)]
         Rgba4,
 
+        [PixelFormat(Engine.AbyssEngine2, 1)]   // UI
         [PixelFormat(Engine.AbyssEngine2, 129)]
         [PixelFormat(Engine.AbyssEngine4, 1)]
         Rgba8,
@@ -40,7 +41,6 @@
         [PixelFormat(Engine.AbyssEngine4, 33)]
         Rgba32F,
 
-        [PixelFormat(Engine.AbyssEngine2, 1)]
         [PixelFormat(Engine.AbyssEngine2, 3)]
         [PixelFormat(Engine.AbyssEngine4, 8)]
         Bgra8,
