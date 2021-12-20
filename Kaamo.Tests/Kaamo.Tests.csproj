@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
     <IsPackable>false</IsPackable>
-    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+    <RunPostBuildEvent>Always</RunPostBuildEvent>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy &quot;$(ProjectDir)Resources&quot; &quot;$(TargetDir)Resources&quot; /Y /I /E" />
+    <Exec Command="echo &quot;Test: copying native libraries...&quot;&#xD;&#xA;xcopy &quot;$(SolutionDir)build\Kaamo*&quot; &quot;$(TargetDir)&quot; /Y /I&#xD;&#xA;echo &quot;Test: copying resources...&quot;&#xD;&#xA;xcopy &quot;$(ProjectDir)Resources&quot; &quot;$(TargetDir)Resources&quot; /Y /I /E" />
   </Target>
 
 </Project>

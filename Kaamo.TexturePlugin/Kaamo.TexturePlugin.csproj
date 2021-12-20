@@ -4,6 +4,7 @@
     <TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
     <BaseOutputPath>..\build\</BaseOutputPath>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <RunPostBuildEvent>Always</RunPostBuildEvent>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -31,7 +32,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy &quot;$(SolutionDir)build\Kaamo.Texture*&quot; &quot;$(TargetDir)&quot; /Y /I&#xD;&#xA;xcopy &quot;$(OutDir)Kaamo*&quot; &quot;C:\Users\xyx0826\Documents\.Apps\paint.net.4.3.4.portable.x64\FileTypes\$(ProjectName)&quot; /Y /I" />
+    <Exec Command="echo &quot;Plugin: copying native libraries...&quot;&#xD;&#xA;xcopy &quot;$(SolutionDir)build\Kaamo.Texture*&quot; &quot;$(TargetDir)&quot; /Y /I&#xD;&#xA;echo &quot;Plugin: copying build output...&quot;&#xD;&#xA;xcopy &quot;$(OutDir)Kaamo*&quot; &quot;C:\Users\xyx0826\Documents\.Apps\paint.net.4.3.4.portable.x64\FileTypes\$(ProjectName)&quot; /Y /I" />
   </Target>
 
 </Project>
