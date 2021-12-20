@@ -40,6 +40,8 @@
     <ClCompile Include="third_party\detex\decompress-bptc.cpp" />
     <ClCompile Include="third_party\detex\decompress-eac.cpp" />
     <ClCompile Include="third_party\detex\decompress-etc.cpp" />
+    <ClCompile Include="third_party\detex\decompress-rgtc.cpp" />
+    <ClCompile Include="third_party\detex\division-tables.cpp" />
     <ClCompile Include="third_party\detex\file-info.cpp" />
     <ClCompile Include="third_party\detex\half-float.cpp" />
     <ClCompile Include="third_party\detex\misc.cpp" />

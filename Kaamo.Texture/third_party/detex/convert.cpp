@@ -69,7 +69,6 @@ uint8_t * DETEX_RESTRICT target_pixel_buffer) {
 }
 
 // Swapping red and blue (not in-place).
-#if 0
 static void ConvertPixel24RGB8ToPixel32BGRX8(uint8_t * DETEX_RESTRICT source_pixel_buffer, int nu_pixels,
 uint8_t * DETEX_RESTRICT target_pixel_buffer) {
 	uint32_t *target_pixel32_buffer = (uint32_t *)target_pixel_buffer;
@@ -402,7 +401,7 @@ int nu_pixels, uint8_t * DETEX_RESTRICT target_pixel_buffer) {
 		target_pixel64_buffer++;
 	}
 }
-#endif
+
 // Float to half-float conversion.
 
 static void ConvertPixel32FloatR32ToPixel16FloatR16(uint8_t * DETEX_RESTRICT source_pixel_buffer,
@@ -581,7 +580,6 @@ int nu_pixels, uint8_t * DETEX_RESTRICT target_pixel_buffer) {
 
 // Conversion from normalized half-float to 16-bit integer (in-place).
 
-#if 0
 static void ConvertPixel16FloatR16ToPixel16R16(uint8_t * DETEX_RESTRICT source_pixel_buffer,
 int nu_pixels, uint8_t * DETEX_RESTRICT target_pixel_buffer) {
 	detexConvertNormalizedHalfFloatToUInt16((uint16_t *)source_pixel_buffer, nu_pixels);
@@ -606,8 +604,8 @@ static void ConvertPixel64FloatRGBA16ToPixel64RGBA16(uint8_t * DETEX_RESTRICT so
 int nu_pixels, uint8_t * DETEX_RESTRICT target_pixel_buffer) {
 	detexConvertNormalizedHalfFloatToUInt16((uint16_t *)source_pixel_buffer, nu_pixels * 4);
 }
-#endif
 
+#if 0
 // Conversion from HDR half-float to 16-bit integer (in-place). Depends on gamma parameters.
 
 static void ConvertPixel16FloatR16HDRToPixel16R16(uint8_t * DETEX_RESTRICT source_pixel_buffer,
@@ -653,6 +651,7 @@ int nu_pixels, uint8_t * DETEX_RESTRICT target_pixel_buffer) {
 	float *source_pixelf_buffer = (float *)source_pixel_buffer;
 	detexConvertHDRFloatToFloat(source_pixelf_buffer, nu_pixels * 4);
 }
+#endif
 
 // Conversion between packed RGB8 and RGBX8 and vice-versa.
 
@@ -702,10 +701,10 @@ uint8_t * DETEX_RESTRICT target_pixel_buffer) {
 	}
 }
 
-static void ConvertPixel64RGBX16ToPixel48RGB16(uint8_t * DETEX_RESTRICT source_pixel_buffer, int nu_pixels,
-uint8_t * DETEX_RESTRICT target_pixel_buffer) {
-	uint64_t *source_pixel64_buffer = (uint64_t *)source_pixel_buffer;
-	uint16_t *target_pixel16_buffer = (uint16_t *)target_pixel16_buffer;
+static void ConvertPixel64RGBX16ToPixel48RGB16(uint8_t* DETEX_RESTRICT source_pixel_buffer, int nu_pixels,
+	uint8_t* DETEX_RESTRICT target_pixel_buffer) {
+	uint64_t* source_pixel64_buffer = (uint64_t*)source_pixel_buffer;
+	uint16_t* target_pixel16_buffer = (uint16_t*)target_pixel_buffer;
 	for (int i = 0; i < nu_pixels; i++) {
 		uint64_t pixel = *source_pixel64_buffer;
 		target_pixel16_buffer[0] = detexPixel64GetR16(pixel);
@@ -776,7 +775,6 @@ detexConversionType detex_conversion_table[] = {
 	{ DETEX_PIXEL_FORMAT_BGRA8, DETEX_PIXEL_FORMAT_RGBA8, ConvertPixel32RGBA8ToPixel32BGRA8 },
 	{ DETEX_PIXEL_FORMAT_FLOAT_RGBX16, DETEX_PIXEL_FORMAT_FLOAT_BGRX16, ConvertPixel64RGBX16ToPixel64BGRX16 },
 	{ DETEX_PIXEL_FORMAT_FLOAT_BGRX16, DETEX_PIXEL_FORMAT_FLOAT_RGBX16, ConvertPixel64RGBX16ToPixel64BGRX16 },
-#if 0
 	// Swapping red and blue (not in-place)
 	{ DETEX_PIXEL_FORMAT_RGB8, DETEX_PIXEL_FORMAT_BGRX8, ConvertPixel24RGB8ToPixel32BGRX8 },
 	// Signed integer conversions (in-place).
@@ -810,7 +808,6 @@ detexConversionType detex_conversion_table[] = {
 	{ DETEX_PIXEL_FORMAT_RGBX8, DETEX_PIXEL_FORMAT_RGBX16, ConvertPixel32RGBX8ToPixel64RGBX16 },
 	{ DETEX_PIXEL_FORMAT_RGBA8, DETEX_PIXEL_FORMAT_RGBA16, ConvertPixel32RGBA8ToPixel64RGBA16 },
 	// Integer to half-float conversion (in-place).
-
 	// 35
 	{ DETEX_PIXEL_FORMAT_R16, DETEX_PIXEL_FORMAT_FLOAT_R16, ConvertPixel16R16ToPixel16FloatR16 },
 	{ DETEX_PIXEL_FORMAT_RG16, DETEX_PIXEL_FORMAT_FLOAT_RG16, ConvertPixel32RG16ToPixel32FloatRG16 },
@@ -822,10 +819,12 @@ detexConversionType detex_conversion_table[] = {
 	{ DETEX_PIXEL_FORMAT_FLOAT_RGB16, DETEX_PIXEL_FORMAT_RGB16, ConvertPixel48FloatRGB16ToPixel48RGB16 },
 	{ DETEX_PIXEL_FORMAT_FLOAT_RGBX16, DETEX_PIXEL_FORMAT_RGBX16, ConvertPixel64FloatRGBX16ToPixel64RGBX16 },
 	{ DETEX_PIXEL_FORMAT_FLOAT_RGBA16, DETEX_PIXEL_FORMAT_RGBA16, ConvertPixel64FloatRGBA16ToPixel64RGBA16 },
+#if 0
 	// HDR half-float to integer conversion (in-place).
 	{ DETEX_PIXEL_FORMAT_FLOAT_R16_HDR, DETEX_PIXEL_FORMAT_R16, ConvertPixel16FloatR16HDRToPixel16R16 },
 	{ DETEX_PIXEL_FORMAT_FLOAT_RG16_HDR, DETEX_PIXEL_FORMAT_RG16, ConvertPixel32FloatRG16HDRToPixel32RG16 },
 	{ DETEX_PIXEL_FORMAT_FLOAT_RGBX16_HDR, DETEX_PIXEL_FORMAT_RGBX16, ConvertPixel64FloatRGBX16HDRToPixel64RGBX16 },
+#endif
 	// Float to half-float conversion.
 	// 47
 	{ DETEX_PIXEL_FORMAT_FLOAT_R32, DETEX_PIXEL_FORMAT_FLOAT_R16, ConvertPixel32FloatR32ToPixel16FloatR16 },
@@ -838,7 +837,6 @@ detexConversionType detex_conversion_table[] = {
 	{ DETEX_PIXEL_FORMAT_FLOAT_RGB32, DETEX_PIXEL_FORMAT_RGB16, ConvertPixel96FloatRGB32ToPixel48RGB16 },
 	{ DETEX_PIXEL_FORMAT_FLOAT_RGBX32, DETEX_PIXEL_FORMAT_RGBX16, ConvertPixel128FloatRGBX32ToPixel64RGBX16 },
 	// Half-float to float conversion.
-#endif
 	// 55
 	{ DETEX_PIXEL_FORMAT_FLOAT_R16, DETEX_PIXEL_FORMAT_FLOAT_R32, ConvertPixel16FloatR16ToPixel32FloatR32 },
 	{ DETEX_PIXEL_FORMAT_FLOAT_RG16, DETEX_PIXEL_FORMAT_FLOAT_RG32, ConvertPixel32FloatRG16ToPixel64FloatRG32 },
@@ -849,8 +847,8 @@ detexConversionType detex_conversion_table[] = {
 	{ DETEX_PIXEL_FORMAT_FLOAT_R32_HDR, DETEX_PIXEL_FORMAT_FLOAT_R32, ConvertPixel32FloatR32HDRToPixel32FloatR32 },
 	{ DETEX_PIXEL_FORMAT_FLOAT_RG32_HDR, DETEX_PIXEL_FORMAT_FLOAT_RG32, ConvertPixel64FloatRG32HDRToPixel64FloatRG32 },
 	{ DETEX_PIXEL_FORMAT_FLOAT_RGB32_HDR, DETEX_PIXEL_FORMAT_FLOAT_RGB32, ConvertPixel96FloatRGB32HDRToPixel96FloatRGB32 },
-	{ DETEX_PIXEL_FORMAT_FLOAT_RGBX32_HDR, DETEX_PIXEL_FORMAT_FLOAT_RGBX32,
-		ConvertPixel128FloatRGBX32HDRToPixel128FloatRGBX32 },
+	{ DETEX_PIXEL_FORMAT_FLOAT_RGBX32_HDR, DETEX_PIXEL_FORMAT_FLOAT_RGBX32,	ConvertPixel128FloatRGBX32HDRToPixel128FloatRGBX32 },
+#endif
 	// Conversion between packed RGB8 and RGBX8.
 	// 62
 	{ DETEX_PIXEL_FORMAT_RGB8, DETEX_PIXEL_FORMAT_RGBX8, ConvertPixel24RGB8ToPixel32RGBX8 },
@@ -865,7 +863,6 @@ detexConversionType detex_conversion_table[] = {
 	{ DETEX_PIXEL_FORMAT_FLOAT_RGBX32, DETEX_PIXEL_FORMAT_FLOAT_RGB32, ConvertPixel128RGBX32ToPixel96RGB32 },
 	{ DETEX_PIXEL_FORMAT_FLOAT_RGB32_HDR, DETEX_PIXEL_FORMAT_FLOAT_RGBX32_HDR, ConvertPixel96RGB32ToPixel128RGBX32 },
 	{ DETEX_PIXEL_FORMAT_FLOAT_RGBX32_HDR, DETEX_PIXEL_FORMAT_FLOAT_RGB32_HDR, ConvertPixel128RGBX32ToPixel96RGB32 },
-#endif
 };
 
 #define NU_CONVERSION_TYPES (sizeof(detex_conversion_table) / sizeof(detex_conversion_table[0]))

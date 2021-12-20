@@ -19,7 +19,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 #include <stdlib.h>
 #include <math.h>
 #include <float.h>
-//#include <fenv.h>
+#include <fenv.h>
 
 #include "detex.h"
 #include "half-float.h"
@@ -271,28 +271,27 @@ void detexConvertHalfFloatToFloat(uint16_t *source_buffer, int n, float *target_
     halfp2singles(target_buffer, source_buffer, n);
 }
 
-#if 0
 void detexConvertFloatToHalfFloat(float *source_buffer, int n, uint16_t *target_buffer) {
 	singles2halfp(target_buffer, source_buffer, n);
 }
 
 // Convert normalized half floats to unsigned 16-bit integers in place.
-void detexConvertNormalizedHalfFloatToUInt16(uint16_t *buffer, int n) {
-	fesetround(FE_DOWNWARD);
-	for (int i = 0; i < n; i++) {
-		float f = detexGetFloatFromHalfFloat(buffer[i]);
-		int u = lrintf(detexClamp0To1(f) * 65535.0f + 0.5f);
-		buffer[i] = (uint16_t)u;
-	}
+void detexConvertNormalizedHalfFloatToUInt16(uint16_t* buffer, int n) {
+    // detexValidateHalfFloatTable();
+    fesetround(FE_DOWNWARD);
+    for (int i = 0; i < n; i++) {
+        float f = detexGetFloatFromHalfFloat(buffer[i]);
+        int u = lrintf(detexClamp0To1(f) * 65535.0f + 0.5f);
+        buffer[i] = (uint16_t)u;
+    }
 }
 
 // Convert normalized floats to unsigned 16-bit integers.
-void detexConvertNormalizedFloatToUInt16(float * DETEX_RESTRICT source_buffer, int n,
-uint16_t * DETEX_RESTRICT target_buffer) {
-	fesetround(FE_DOWNWARD);
-	for (int i = 0; i < n; i++) {
-		int u = lrintf(detexClamp0To1(source_buffer[i]) * 65535.0f + 0.5f);
-		target_buffer[i] = (uint16_t)u;
-	}
+void detexConvertNormalizedFloatToUInt16(float* DETEX_RESTRICT source_buffer, int n,
+    uint16_t* DETEX_RESTRICT target_buffer) {
+    fesetround(FE_DOWNWARD);
+    for (int i = 0; i < n; i++) {
+        int u = lrintf(detexClamp0To1(source_buffer[i]) * 65535.0f + 0.5f);
+        target_buffer[i] = (uint16_t)u;
+    }
 }
-#endif

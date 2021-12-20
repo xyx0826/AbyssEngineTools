@@ -39,8 +39,9 @@ EXTERN_DLL_EXPORT uint32_t Decompress(
 		tex.data = (uint8_t*)pIn;
 		tex.width = x;
 		tex.height = y;
-		tex.width_in_blocks = x / 4;
-		tex.height_in_blocks = y / 4;
+		tex.width_in_blocks = (x + 3) / 4;
+		tex.height_in_blocks = (y + 3) / 4;
+
 		retLen = detexDecompressTextureLinear(&tex, (uint8_t*)pOut, DETEX_PIXEL_FORMAT_RGBA8);
 		break;
 	}

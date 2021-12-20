@@ -71,6 +71,12 @@
     <ClCompile Include="third_party\pvr\PVRTDecompress.cpp">
       <Filter>third_party\pvr</Filter>
     </ClCompile>
+    <ClCompile Include="third_party\detex\decompress-rgtc.cpp">
+      <Filter>third_party\detex</Filter>
+    </ClCompile>
+    <ClCompile Include="third_party\detex\division-tables.cpp">
+      <Filter>third_party\detex</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="third_party">
