@@ -123,7 +123,7 @@ namespace Kaamo.Texture
             if (Format.IsCompressed())
             {
                 // Directly decompress into surfaces
-                Surfaces = Decompressor.Decompress(this);
+                Surfaces = Decompressor.Decompress(this, true);
             }
             else
             {

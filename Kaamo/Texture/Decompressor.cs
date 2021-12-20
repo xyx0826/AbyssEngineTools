@@ -17,12 +17,13 @@ namespace Kaamo.Texture
         /// <param name="mipmapCount">Texture mipmap count, including base level.</param>
         /// <param name="isCubemap">Whether the texture is a cubemap.</param>
         /// <param name="data">Pixel data.</param>
+        /// <param name="outputBgra">Whether to convert the output to <see cref="PixelFormat.Bgra8"/>.</param>
         /// <returns>
         /// An array of RGBA 8888 bitmaps containing faces and their mipmap levels.
         /// </returns>
         private static IReadOnlyList<byte[]> Decompress(
             PixelFormat format, int width, int height, int depth, int mipmapCount, bool isCubemap,
-            byte[] data)
+            byte[] data, bool outputBgra)
         {
             if (depth > 0)
             {
@@ -87,26 +88,35 @@ namespace Kaamo.Texture
                     }
 
                     totalRead += (int)readSize;
-                    mipmaps[level + face * mipmapCount] = rgba;
+
+                    if (outputBgra)
+                    {
+                        mipmaps[level + face * mipmapCount] = PixelFormatUtils.ConvertToBgra8(PixelFormat.Rgba8, rgba);
+                    }
+                    else
+                    {
+                        mipmaps[level + face * mipmapCount] = rgba;
+                    }
                 }
             }
 
             return mipmaps;
         }
 
-        public static IReadOnlyList<byte[]> Decompress(AeImage image) => Decompress(image.Format,
-            image.Width, image.Height, 0, image.MipmapCount, false, image.Data);
+        public static IReadOnlyList<byte[]> Decompress(AeImage image, bool outputBgra = false) => Decompress(image.Format,
+            image.Width, image.Height, 0, image.MipmapCount, false, image.Data, outputBgra);
 
         /// <summary>
         /// Decompresses the specified texture.
         /// Each face and mipmap within the texture is decompressed separately.
         /// </summary>
         /// <param name="texture">The texture to decompress.</param>
+        /// <param name="outputBgra">Whether to convert the output to <see cref="PixelFormat.Bgra8"/>.</param>
         /// <returns>
         /// An array of RGBA 8888 bitmaps containing faces and their mipmap levels.
         /// </returns>
-        public static IReadOnlyList<byte[]> Decompress(Ae4Texture texture)
+        public static IReadOnlyList<byte[]> Decompress(Ae4Texture texture, bool outputBgra = false)
             => Decompress(texture.Format, texture.Width, texture.Height, texture.Depth,
-                texture.MipmapCount, texture.IsCubemap, texture.Data);
+                texture.MipmapCount, texture.IsCubemap, texture.Data, outputBgra);
     }
 }
