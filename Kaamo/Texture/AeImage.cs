@@ -92,8 +92,8 @@ namespace Kaamo.Texture
     {
         public AeImage(
             PixelFormat format, ushort width, ushort height, int mipmapCount,
-            bool isCubemap, ICollection<AeImageRegion> regions, byte[] data,
-            ICollection<ICollection<AeImageGlyph>> glyphGroups)
+            bool isCubemap, IList<AeImageRegion> regions, byte[] data,
+            IList<IList<AeImageGlyph>> glyphGroups)
         {
             Format = format;
             Width = width;
@@ -179,7 +179,7 @@ namespace Kaamo.Texture
         /// <summary>
         /// Texture regions.
         /// </summary>
-        public readonly ICollection<AeImageRegion> Regions;
+        public readonly IList<AeImageRegion> Regions;
 
         /// <summary>
         /// Original texture data.
@@ -189,7 +189,7 @@ namespace Kaamo.Texture
         /// <summary>
         /// Glyph groups in the image.
         /// </summary>
-        public ICollection<ICollection<AeImageGlyph>> GlyphGroups;
+        public IList<IList<AeImageGlyph>> GlyphGroups;
 
         /// <summary>
         /// Mipmaps and faces of the image in <see cref="PixelFormat.Bgra8"/>.
@@ -245,7 +245,7 @@ namespace Kaamo.Texture
         /// <param name="stream">The image stream.</param>
         /// <param name="nRegions">Number of regions to read.</param>
         /// <returns>Regions.</returns>
-        private static ICollection<AeImageRegion> ReadRegions(Stream stream, int nRegions)
+        private static IList<AeImageRegion> ReadRegions(Stream stream, int nRegions)
         {
             var regions = new AeImageRegion[nRegions];
 
@@ -264,7 +264,7 @@ namespace Kaamo.Texture
         /// <param name="stream">The image stream.</param>
         /// <param name="nGlyphGroups">Number of glyph groups to read.</param>
         /// <returns>Glyph groups.</returns>
-        private static ICollection<ICollection<AeImageGlyph>> ReadGlyphGroups(
+        private static IList<IList<AeImageGlyph>> ReadGlyphGroups(
             Stream stream, int nGlyphGroups)
         {
             Span<byte> buf = stackalloc byte[2];
