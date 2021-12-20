@@ -36,6 +36,7 @@
     <ClCompile Include="third_party\detex\clamp.cpp" />
     <ClCompile Include="third_party\detex\convert.cpp" />
     <ClCompile Include="third_party\detex\dds.cpp" />
+    <ClCompile Include="third_party\detex\decompress-bc.cpp" />
     <ClCompile Include="third_party\detex\decompress-bptc-float.cpp" />
     <ClCompile Include="third_party\detex\decompress-bptc.cpp" />
     <ClCompile Include="third_party\detex\decompress-eac.cpp" />
