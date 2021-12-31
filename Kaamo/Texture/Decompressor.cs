@@ -58,8 +58,8 @@ namespace Kaamo.Texture
                     PixelFormatUtils.GetMipmapDimensions(width, height, depth,
                         level, out var w, out var h, out _);
 
-                    // Create output buffer, each pixel is RGBA8
-                    var rgba = new byte[w * h * 4];
+                    // Create output buffer, each pixel has 4 channels
+                    var pixels = new byte[w * h * 4];
 
                     // Compute starting position for current face and level
                     var offset = PixelFormatUtils.GetOffset(format, mipmapCount,
@@ -77,8 +77,10 @@ namespace Kaamo.Texture
                         height, depth, level);
 
                     // Call into library to decompress pixels
+                    var outputFormat =
+                        outputBgra ? NativePixelFormat.Bgra8 : NativePixelFormat.Rgba8;
                     var readSize = Native.Decompress(data, offset, pvrFormat, w, h,
-                        rgba);
+                        pixels, outputFormat);
 
                     // Compressed size sanity check
                     if (inSize != readSize)
@@ -88,15 +90,7 @@ namespace Kaamo.Texture
                     }
 
                     totalRead += (int)readSize;
-
-                    if (outputBgra)
-                    {
-                        mipmaps[level + face * mipmapCount] = PixelFormatUtils.ConvertToBgra8(PixelFormat.Rgba8, rgba);
-                    }
-                    else
-                    {
-                        mipmaps[level + face * mipmapCount] = rgba;
-                    }
+                    mipmaps[level + face * mipmapCount] = pixels;
                 }
             }
 

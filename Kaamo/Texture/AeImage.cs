@@ -127,6 +127,13 @@ namespace Kaamo.Texture
             }
             else
             {
+                if (!Enum.TryParse(Format.ToString(),
+                        out NativePixelFormat nativeFormat))
+                {
+                    throw new Exception("Could not create surfaces for this texture because" +
+                                        $"the library could not convert {Format}.");
+                }
+
                 // Slice up data
                 var surfaces = new List<byte[]>(MipmapCount);
                 for (var level = 0; level < MipmapCount; level++)
@@ -142,9 +149,15 @@ namespace Kaamo.Texture
                     var offset = PixelFormatUtils.GetOffset(Format, MipmapCount,
                         Width, actualHeight, 1, 0, level, IsCubemap);
 
-                    var rgbaSurface = new ArraySegment<byte>(Data, offset, size).ToArray();
-                    var bgraSurface = PixelFormatUtils.ConvertToBgra8(Format, rgbaSurface);
-                    surfaces.Add(bgraSurface);
+                    // Convert to BGRA8
+                    var surface = new ArraySegment<byte>(Data, offset, size).ToArray();
+                    if (!Native.ConvertInPlace(surface, actualHeight * Width, nativeFormat,
+                            NativePixelFormat.Bgra8))
+                    {
+                        throw new Exception("Could not create surfaces for this texture because" +
+                                            $"the library could not convert {Format}.");
+                    }
+                    surfaces.Add(surface);
                 }
 
                 Surfaces = surfaces;

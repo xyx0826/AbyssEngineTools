@@ -277,56 +277,5 @@ namespace Kaamo.Texture.Utils
 
             throw new Exception("Unknown engine version or format value.");
         }
-
-        /// <summary>
-        /// Converts texture data in raw pixel format to
-        /// <see cref="PixelFormat.Bgra8"/>.
-        /// </summary>
-        /// <param name="format">Original data format.</param>
-        /// <param name="data">Original data.</param>
-        /// <returns></returns>
-        public static unsafe byte[] ConvertToBgra8(PixelFormat format, byte[] data)
-        {
-            if (!BitsPerPixel.TryGetValue(format, out var bpp))
-            {
-                throw new Exception(
-                    "The specified pixel format is not uncompressed.");
-            }
-
-            var bytepp = bpp / 8;
-            if (data.Length % bytepp > 0)
-            {
-                throw new Exception(
-                    "The data contains partial pixels under the specified " +
-                    "pixel format.");
-            }
-
-            var npx = data.Length / bytepp;
-            var output = new byte[npx * 4]; // 4 bytepp for Bgra8
-            fixed (byte* pData = data)
-            {
-                switch (format)
-                {
-                    case PixelFormat.Bgra8:
-                        // No transformation needed
-                        Array.Copy(data, output, output.Length);
-                        break;
-                    case PixelFormat.Rgba8:
-                        // Swap R and B bytes
-                        Array.Copy(data, output, output.Length);
-                        for (var i = 0; i < npx; i++)
-                        {
-                            // Swap first and third bytes for each pixel
-                            (output[i * 4], output[i * 4 + 2]) = (output[i * 4 + 2], output[i * 4]);
-                        }
-                        break;
-                    default:
-                        throw new Exception(
-                            "Unsupported format to convert to BGRA8.");
-                }
-            }
-
-            return output;
-        }
     }
 }

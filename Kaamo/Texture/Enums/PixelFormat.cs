@@ -167,5 +167,7 @@
         Etc2 = 218104608,
         Etc2Punchthrough = 234881844,
         Etc2Eac = 260047668,
+        Rgba8 = 820,
+        Bgra8 = 828
     }
 }
