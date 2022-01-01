@@ -46,7 +46,7 @@ EXTERN_DLL_EXPORT uint32_t Decompress(
 	default:
 		// ETC2, S3TC
 		detexTexture tex;
-		tex.format = (uint32_t)format;
+		tex.format = static_cast<uint32_t>(format);
 		tex.data = (uint8_t*)pIn;
 		tex.width = x;
 		tex.height = y;
