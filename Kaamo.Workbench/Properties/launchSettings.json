@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Kaamo.Workbench (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Kaamo.Workbench (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
